@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import './InterviewRecordingPage.css';
 import { getInterviewById, getQuestionsInPackage } from '../services/interviewService';
 import useCandidateStore from '../stores/useCandidateStore';
+import axios from 'axios';
 
 
 const uploadVideo = async (file, interviewId, candidateId) => {
@@ -17,10 +18,8 @@ const uploadVideo = async (file, interviewId, candidateId) => {
     console.log("FormData:", [...formData.entries()]);
 
     try {
-        const response = await fetch('http://localhost:3000/api/upload', { // Backend URL doğru olmalı
-            method: 'POST',
-            body: formData,
-        });
+        const response = await axios.post('http://localhost:3000/api/upload', formData
+        );
 
         if (response.ok) {
             const { videoUrl } = await response.json();
