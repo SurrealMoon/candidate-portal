@@ -1,6 +1,4 @@
-import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();    
+import axios from "axios";   
 
 const API_BASE_URL = import.meta.env.VITE_BASE_URL;
 
