@@ -18,7 +18,7 @@ const uploadVideo = async (file, interviewId, candidateId) => {
     console.log("FormData:", [...formData.entries()]);
 
     try {
-        const response = await axios.post('http://localhost:3000/api/upload', formData
+        const response = await axios.post('/upload', formData
         );
 
         if (response.ok) {
