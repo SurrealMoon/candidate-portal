@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { createCandidate } from '../../../../candidate-portal/src/services/candidateService';
+import { createCandidate } from '../services/candidateService';
 
 const useCandidateStore = create((set) => ({
     candidates: [],

@@ -6,7 +6,8 @@ function App() {
   const handleRecordingSubmit = (recordedChunks) => {
     console.log("Recorded video chunks:", recordedChunks);
     // Kayıt işlemi ile ilgili başka işlemler burada yapılabilir.
-  };
+};
+
   return (
     <Router>
       <Routes>

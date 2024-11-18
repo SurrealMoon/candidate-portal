@@ -2,8 +2,8 @@ import { createCandidate } from '../services/candidateService';
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './InterviewRecordingPage.css';
-import { getInterviewById, getQuestionsInPackage } from '../../../Remote-Techv1/frontend/src/services/interviewService';
-import useCandidateStore from '../../../Remote-Techv1/frontend/src/stores/useCandidateStore';
+import { getInterviewById, getQuestionsInPackage } from '../services/interviewService';
+import useCandidateStore from '../stores/useCandidateStore';
 
 
 const uploadVideo = async (file, interviewId, candidateId) => {
