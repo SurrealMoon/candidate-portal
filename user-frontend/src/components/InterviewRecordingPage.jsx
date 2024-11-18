@@ -166,7 +166,7 @@ const InterviewRecordingPage = ({ onSubmit }) => {
         
     
         if (interviewId) fetchInterview();
-    }, [interviewId]);
+    }, [interviewId, getQuestionsInPackage, getInterviewById]);
 
     useEffect(() => {
         if (questions.length > 0) {
