@@ -135,38 +135,48 @@ const InterviewRecordingPage = ({ onSubmit }) => {
         const fetchInterview = async () => {
             try {
                 const interviewData = await getInterviewById(interviewId);
-                const packageQuestions = await getQuestionsInPackage(interviewData.selectedPackage);
-        
-                // Package Questions düzeltme
+    
+                // Gelen veriyi kontrol edelim
+                console.log("Interview Data:", interviewData);
+    
+                const packageQuestionsRaw = await getQuestionsInPackage(interviewData.selectedPackage);
+                console.log("Raw Package Questions:", packageQuestionsRaw);
+    
+                // Package questions'ı diziye çevir
+                const packageQuestions = Array.isArray(packageQuestionsRaw) ? packageQuestionsRaw : [];
+    
+                // Soruların formatlanması
                 const formattedPackageQuestions = packageQuestions.map((q) => ({
                     ...q,
-                    time: q.time / 60, // Saniyeyi dakikaya çevirme! Eğer zaten doğruysa, bu satırı düzelt
+                    time: q.time / 60, // Saniyeyi dakikaya çevirme
                 }));
-        
-                // Debugging: Soru paketinden gelen soruların zamanlarını loglayalım
+    
+                // Debug: Paket sorularını loglayalım
                 console.log("Formatted Package Questions:", formattedPackageQuestions);
-        
-                const formattedCustomQuestions = interviewData.customQuestions.map((q, index) => ({
-                    questionText: q.questionText,
-                    options: [],
-                    answer: null,
-                    time: q.time, // Custom questions zaten doğru formattaysa
-                    order: formattedPackageQuestions.length + index + 1,
-                }));
-        
+    
+                const formattedCustomQuestions = Array.isArray(interviewData.customQuestions)
+                    ? interviewData.customQuestions.map((q, index) => ({
+                        questionText: q.questionText,
+                        options: [],
+                        answer: null,
+                        time: q.time,
+                        order: formattedPackageQuestions.length + index + 1,
+                    }))
+                    : [];
+    
                 const allQuestions = [...formattedPackageQuestions, ...formattedCustomQuestions];
                 setQuestions(allQuestions);
-        
+    
                 console.log("Loaded questions in fetchInterview:", allQuestions);
             } catch (error) {
                 console.error("Error fetching interview or questions:", error);
                 alert("Mülakat veya soru paketi bulunamadı.");
             }
         };
-        
     
-        if (interviewId) fetchInterview();
-    }, [interviewId, getQuestionsInPackage, getInterviewById]);
+        fetchInterview();
+    }, [interviewId]);
+    
 
     useEffect(() => {
         if (questions.length > 0) {
